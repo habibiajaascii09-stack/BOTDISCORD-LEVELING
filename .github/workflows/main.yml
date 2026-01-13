@@ -20,11 +20,12 @@ jobs:
       - name: Install Libs
         run: pip install discord.py Pillow requests
 
-      - name: Run Bot
+            - name: Run Bot
         env:
           TOKEN: ${{ secrets.DISCORD_TOKEN }}
         run: |
-          timeout 295m python bot.py || echo "Waktunya save data!"
+          # Ini perintah buat maksa bot nyala selama 295 menit (sekitar 5 jam)
+          timeout 295m python bot.py || echo "Waktu habis, lanjut save data!"
 
       - name: Auto-Save ke Repo
         if: always()
