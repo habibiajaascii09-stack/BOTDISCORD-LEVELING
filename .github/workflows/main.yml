@@ -1,0 +1,37 @@
+name: Bot Discord Super
+on:
+  schedule:
+    - cron: '0 */5 * * *' # Jalan tiap 5 jam
+  workflow_dispatch:      # Bisa jalan manual
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Install Libs
+        run: pip install discord.py Pillow requests
+
+      - name: Run Bot
+        env:
+          TOKEN: ${{ secrets.MTQ2MDU4OTM5MjczMjM2MDgxNA.GCbQdg.UcOkvB-xXt6EJMdssHvTwUi-bE725yobTM1u4E }}
+        run: |
+          timeout 295m python bot.py || echo "Waktunya save data!"
+
+      - name: Auto-Save ke Repo
+        if: always()
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Simpan data leveling [skip ci]" || exit 0
+          git push
+          
