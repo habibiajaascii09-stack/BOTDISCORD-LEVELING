@@ -22,7 +22,7 @@ jobs:
 
       - name: Run Bot
         env:
-          TOKEN: ${{ secrets.MTQ2MDU4OTM5MjczMjM2MDgxNA.GCbQdg.UcOkvB-xXt6EJMdssHvTwUi-bE725yobTM1u4E }}
+          TOKEN: ${{ secrets.DISCORD_TOKEN }}
         run: |
           timeout 295m python bot.py || echo "Waktunya save data!"
 
